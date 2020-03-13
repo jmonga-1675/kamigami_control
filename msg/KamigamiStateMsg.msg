@@ -1,3 +1,3 @@
 Header header
 
-sensor_msgs/Imu
+sensor_msgs/Imu imu
