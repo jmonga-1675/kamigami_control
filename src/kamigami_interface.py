@@ -16,7 +16,7 @@ class KamigamiInterface():
         # i2c = busio.I2C(board.SCL, board.SDA)
         # self.sensor = LSM6DS33(i2c)
         self.motor_left = Motor(12, 18)
-        self.motor_right = Motor(13, 6)
+        self.motor_right = Motor(13, 19)
         rospy.on_shutdown(self.shutdown)
 
     def send_cmd(self, data):
@@ -25,14 +25,14 @@ class KamigamiInterface():
     def motor_cmd(self, motor_left_speed, motor_right_speed):
         motor_left_speed = max(min(1, motor_left_speed), -1)
         #TODO: Set Kamigami motor values appropriately
-        # if motor_left_speed >= 0:
-        #     self.motor_left.foward(motor_left_speed)
-        # else:
-        #     self.motor_left.backward(-motor_left_speed)
-        # if motor_right_speed >= 0:
-        #     self.motor_right.foward(motor_right_speed)
-        # else:
-        #     self.motor_right.backward(-motor_right_speed) 
+        if motor_left_speed >= 0:
+            self.motor_left.foward(motor_left_speed)
+        else:
+            self.motor_left.backward(-motor_left_speed)
+        if motor_right_speed >= 0:
+            self.motor_right.foward(motor_right_speed)
+        else:
+            self.motor_right.backward(-motor_right_speed) 
         print('Setting motor left to {}'.format(motor_left_speed))
         print('Setting motor right to {}'.format(motor_right_speed))
 
