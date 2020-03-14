@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import rospy
 import time
 import board
@@ -22,17 +23,18 @@ class KamigamiInterface():
         self.motor_cmd(data.motor_left, data.motor_right)
 
     def motor_cmd(self, motor_left_speed, motor_right_speed):
+        motor_left_speed = max(min(1, motor_left_speed), -1)
         #TODO: Set Kamigami motor values appropriately
         # if motor_left_speed >= 0:
         #     self.motor_left.foward(motor_left_speed)
         # else:
-        #     self.motor_left.backward(motor_left_speed)
+        #     self.motor_left.backward(-motor_left_speed)
         # if motor_right_speed >= 0:
         #     self.motor_right.foward(motor_right_speed)
         # else:
-        #     self.motor_right.backward(motor_right_speed) 
-        print('Setting motor left to {}'.format(motor_left))
-        print('Setting motor right to {}'.format(motor_right))
+        #     self.motor_right.backward(-motor_right_speed) 
+        print('Setting motor left to {}'.format(motor_left_speed))
+        print('Setting motor right to {}'.format(motor_right_speed))
 
     def update_state(self):
         #TODO: Setup actual sensor reading support
@@ -57,4 +59,4 @@ class KamigamiInterface():
 if __name__ == '__main__':
     rospy.init_node('kamigami_interface', anonymous=True)
     kamigami = KamigamiInterface()
-    kamigami.run
+    kamigami.run()
