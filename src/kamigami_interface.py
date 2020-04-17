@@ -40,9 +40,9 @@ class KamigamiInterface():
     def update_state(self):
         #TODO: Setup actual sensor reading support
         angular_velocity = self.sensor.gyro
-        linear_acceleartion = self.sensor.acceleartion
-        print("Angular Velocity: {}".format(angular_velocity)
-        print("Linear Acceleration: {}".format(linear_acceleartion))
+        linear_acceleration = self.sensor.acceleration
+        # print("Angular Velocity: {}".format(angular_velocity)
+        # print("Linear Acceleration: {}".format(linear_acceleration))
         # state = KamigamiStateMsg()
         # state.angular_velocity.x, state,angular_velocity.y, state.angular_velocity.z = angular_velocity.x, angular_velocity.y, angular_velocity.z
         # state.linear_acceleration.x, state,linear_acceleration.y, state.linear_acceleration.z = linear_acceleartion.x, linear_acceleartion.y, linear_acceleartion.z
