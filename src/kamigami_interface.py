@@ -27,11 +27,11 @@ class KamigamiInterface():
         motor_right_speed = max(min(1, motor_right_speed), -1)
         #TODO: Set Kamigami motor values appropriately
         if motor_left_speed >= 0:
-            self.motor_left.foward(motor_left_speed)
+            self.motor_left.forward(motor_left_speed)
         else:
             self.motor_left.backward(-motor_left_speed)
         if motor_right_speed >= 0:
-            self.motor_right.foward(motor_right_speed)
+            self.motor_right.forward(motor_right_speed)
         else:
             self.motor_right.backward(-motor_right_speed) 
         print('Setting motor left to {}'.format(motor_left_speed))
