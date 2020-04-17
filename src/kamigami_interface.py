@@ -10,8 +10,8 @@ from kamigami_control.msg import KamigamiCommandMsg, KamigamiStateMsg
 class KamigamiInterface():
 
     def __init__(self):
-        self.subscriber = rospy.Subscriber('kamigami_cmd', KamigamiCommandMsg, self.send_cmd)
-        self.publisher = rospy.Publisher('kamigami_state', KamigamiStateMsg, queue_size=10)
+            self.subscriber = rospy.Subscriber('kamigami_cmd', KamigamiCommandMsg, self.send_cmd)
+            self.publisher = rospy.Publisher('kamigami_state', KamigamiStateMsg, queue_size=10)
         self.accelerometer_data = []
         # i2c = busio.I2C(board.SCL, board.SDA)
         # self.sensor = LSM6DS33(i2c)
@@ -24,6 +24,7 @@ class KamigamiInterface():
 
     def motor_cmd(self, motor_left_speed, motor_right_speed):
         motor_left_speed = max(min(1, motor_left_speed), -1)
+        motor_right_speed = max(min(1, motor_right_speed), -1)
         #TODO: Set Kamigami motor values appropriately
         if motor_left_speed >= 0:
             self.motor_left.foward(motor_left_speed)
