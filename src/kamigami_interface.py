@@ -18,7 +18,7 @@ class KamigamiInterface():
 
         self.motor_standby = DigitalOutputDevice(17)
         self.motor_right_pwm = PWMOutputDevice(13)
-        self.motor_left_pwm = PWMOutputDevice(12)
+        self.motor_left_pwm = PWMOutputDevice(18)
         self.motor_right_forward = DigitalOutputDevice(27)
         self.motor_right_backward = DigitalOutputDevice(22)
         self.motor_left_forward = DigitalOutputDevice(23)
@@ -38,10 +38,14 @@ class KamigamiInterface():
         #TODO: Set Kamigami motor values appropriately
         if motor_left_speed >= 0:
             # self.motor_left.forward(motor_left_speed)
-            print("left on")
+            self.motor_left_forward.on()
+            self.motor_left_backward.off()
+            self.motor_left_pwm.value = motor_left_speed
         else:
             # self.motor_left.backward(-motor_left_speed)
-            print("left off")
+            self.motor_left_forward.off()
+            self.motor_left_backward.on()
+            self.motor_left_pwm.value = -motor_left_speed
         if motor_right_speed >= 0:
             # self.motor_right.forward(motor_right_speed)
             self.motor_right_forward.on()
@@ -52,6 +56,7 @@ class KamigamiInterface():
             self.motor_right_forward.off()
             self.motor_right_backward.on()
             self.motor_right_pwm.value = -motor_right_speed
+
         print('Setting motor left to {}'.format(motor_left_speed))
         print('Setting motor right to {}'.format(motor_right_speed))
 
