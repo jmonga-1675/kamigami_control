@@ -17,6 +17,10 @@ class XboxControl():
         msg.motor_left = axes[input_dict['joy_left_y']]
         msg.motor_right = axes[input_dict['joy_right_y']]
         msg.motor_left, msg.motor_right = round(msg.motor_left, 1), round(msg.motor_right, 1)
+        if abs(msg.motor_left) <= .1:
+            msg.motor_left = 0
+        if abs(msg.motor_right) <= .1:
+            msg.motor_right = 0
         self.publisher.publish(msg)
 
     def run(self):

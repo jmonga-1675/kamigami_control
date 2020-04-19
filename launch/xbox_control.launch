@@ -2,4 +2,5 @@
 <node pkg="joy" type="joy_node" name="joy_node"/>
 
 <node pkg="kamigami_control" type="xbox_control.py" name="xbox_control"/>
+
 </launch>

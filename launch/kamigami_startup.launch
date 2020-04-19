@@ -1,0 +1,4 @@
+<launch>
+<node pkg="kamigami_interface" type="kamigami_interface.py" name="kamigami_interface"/>
+
+</launch>
