@@ -21,8 +21,8 @@ class KamigamiInterface():
         self.motor_left_pwm = PWMOutputDevice(18)
         self.motor_right_forward = DigitalOutputDevice(27)
         self.motor_right_backward = DigitalOutputDevice(22)
-        self.motor_left_forward = DigitalOutputDevice(23)
-        self.motor_left_backward = DigitalOutputDevice(24)
+        self.motor_left_forward = DigitalOutputDevice(24)
+        self.motor_left_backward = DigitalOutputDevice(23)
         self.pins_on()
 
         # self.motor_left = Motor(12, 18)
