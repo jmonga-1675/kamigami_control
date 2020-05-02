@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import rospy
 import time
+import math
 import board
 import busio
 from gpiozero import Motor, PWMOutputDevice, DigitalOutputDevice
@@ -12,7 +13,7 @@ class KamigamiInterface():
 
     def __init__(self):
         self.subscriber = rospy.Subscriber('kamigami_cmd', KamigamiCommandMsg, self.send_cmd)
-        self.publisher = rospy.Publisher('kamigami_IMU', Imu, queue_size=10)
+        self.publisher = rospy.Publisher('imu/data_raw', Imu, queue_size=10)
         self.accelerometer_data = []
         i2c = busio.I2C(board.SCL, board.SDA)
         self.sensor = LSM6DS33(i2c)
@@ -25,6 +26,8 @@ class KamigamiInterface():
         self.motor_left_forward = DigitalOutputDevice(24)
         self.motor_left_backward = DigitalOutputDevice(23)
         self.pins_on()
+
+        self.deg_to_rad = (math.pi/180)
 
         # self.motor_left = Motor(12, 18)
         # self.motor_right = Motor(13, 19)
@@ -69,8 +72,9 @@ class KamigamiInterface():
         # print("Linear Acceleration: {}".format(linear_acceleration))
         imu_data = Imu()
         imu_data.header.stamp = rospy.Time.now()
-        imu_data.header.frame_id = 'base_link'
-        imu_data.angular_velocity.x, imu_data.angular_velocity.y, imu_data.angular_velocity.z = angular_velocity[0], angular_velocity[1], angular_velocity[2]
+        imu_data.header.frame_id = 'imu_link'
+        ang_raw = [angular_velocity[0], angular_velocity[1], angular_velocity[2]]
+        imu_data.angular_velocity.x, imu_data.angular_velocity.y, imu_data.angular_velocity.z = [ang * self.deg_to_rad for ang in ang_raw]
         imu_data.linear_acceleration.x, imu_data.linear_acceleration.y, imu_data.linear_acceleration.z = linear_acceleration[0], linear_acceleration[1], linear_acceleration[2]
         imu_data.orientation_covariance[0] = -1
         self.publisher.publish(imu_data)
