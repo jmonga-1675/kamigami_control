@@ -9,6 +9,7 @@ class XboxControl():
     def __init__(self):
         self.subscriber = rospy.Subscriber('joy', Joy, self.process_input)
         self.publisher = rospy.Publisher('kamigami_cmd', KamigamiCommandMsg, queue_size=10)
+        self.last_input = None
 
     def process_input(self, data):
         axes = data.axes
@@ -21,7 +22,11 @@ class XboxControl():
             msg.motor_left = 0
         if abs(msg.motor_right) <= .1:
             msg.motor_right = 0
-        self.publisher.publish(msg)
+        if msg == self.last_input:
+            return
+        else:
+            self.last_input = msg
+            self.publisher.publish(msg)
 
     def run(self):
         rate = rospy.Rate(100)
